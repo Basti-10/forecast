@@ -53,7 +53,12 @@ async function showForecast(latlng) {
             <li>Windgeschwindigkeit (km/h): ${details.wind_speed}</li>
         </ul>
         `;
-
+    // Wettericons für die nächsten 24h in 3 Stunden schritten
+    for (let i=0; i <=24; i+=3){
+        let symbol = jsondata.properties.timeseries[i].data.next_1_hours.summary.symbol_code;
+        
+        markup += `<image src="icons/${symbol}.svg" style="width:32px">`;
+    }
     L.popup([
         latlng.lat, latlng.lng
     ], {
