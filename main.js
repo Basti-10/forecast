@@ -63,12 +63,20 @@ async function showForecast(latlng) {
         </ul>
         `;
     // Wettericons für die nächsten 24h in 3 Stunden schritten
-    for (let i=0; i <=24; i+=3){
+    for (let i = 0; i <= 24; i += 3) {
         let symbol = jsondata.properties.timeseries[i].data.next_1_hours.summary.symbol_code;
         let time = new Date(jsondata.properties.timeseries[i].time);
-        
+
         markup += `<image src="icons/${symbol}.svg" style="width:32px" title="${time.toLocaleString()}">`;
     }
+
+    //links zu den json Daten 
+    markup += `
+    <p>
+        <a href="${url}" target="forecast"> Daten downloaden</a>
+        <a href="${osmUrl}" target="forecast"> OSM Details zum Ort</a>
+    </p>
+    `;
     L.popup([
         latlng.lat, latlng.lng
     ], {
@@ -77,7 +85,7 @@ async function showForecast(latlng) {
 }
 
 // auf Kartenklick reagieren
-map.on("click", function(evt) {
+map.on("click", function (evt) {
     //console.log(evt.latlng);
     showForecast(evt.latlng);
 })
