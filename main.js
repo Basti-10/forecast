@@ -12,7 +12,8 @@ let map = L.map("map").setView([ibk.lat, ibk.lng], 5);
 // thematische Layer
 let overlays = {
     forecast: L.featureGroup().addTo(map),
-    wind: L.featureGroup().addTo(map)
+    wind: L.featureGroup().addTo(map),
+    richtung: L.featureGroup(),
 }
 
 // Layer Control
@@ -23,6 +24,7 @@ let layerControl = L.control.layers({
 }, {
     "Wettervorhersage MET Norway": overlays.forecast,
     "ECMWF Windvorhersage": overlays.wind,
+    "Windrichtung Pfeile": overlays.richtung,
 }).addTo(map);
 
 // Maßstab
@@ -84,6 +86,28 @@ async function showForecast(latlng) {
     }).openOn(overlays.forecast)
 }
 
+// Velocity Layer
+fetch('https://geographie.uibk.ac.at/data/ecmwf/data/wind-10u-10v-europe.json')
+    .then(res => res.json())
+    .then(data => {
+        const velocityLayer = L.velocityLayer({
+            data: data,
+            displayValues: true,
+            displayOptions: {
+                velocityType: "Global Wind",
+                position: "bottomleft",
+                emptyString: "No velocity data",
+                angleConvention: "bearingCW",
+                showCardinal: false,
+                speedUnit: "ms",
+                directionString: "Direction",
+                speedString: "Speed",
+            },
+        maxVelocity: 10,
+        });
+        velocityLayer.addTo(overlays.richtung)
+    });
+    
 // auf Kartenklick reagieren
 map.on("click", function (evt) {
     //console.log(evt.latlng);
