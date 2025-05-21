@@ -98,7 +98,7 @@ fetch('https://geographie.uibk.ac.at/data/ecmwf/data/wind-10u-10v-europe.json')
                 position: "bottomleft",
                 emptyString: "keine Winddaten",
                 angleConvention: "meteo",
-                showCardinal: false,
+                showCardinal: true,
                 speedUnit: "ms",
                 directionString: "Direction",
                 speedString: "Speed",
