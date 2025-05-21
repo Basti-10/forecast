@@ -94,10 +94,10 @@ fetch('https://geographie.uibk.ac.at/data/ecmwf/data/wind-10u-10v-europe.json')
             data: data,
             displayValues: true,
             displayOptions: {
-                velocityType: "Global Wind",
+                velocityType: "Wind",
                 position: "bottomleft",
-                emptyString: "No velocity data",
-                angleConvention: "bearingCW",
+                emptyString: "keine Winddaten",
+                angleConvention: "meteo",
                 showCardinal: false,
                 speedUnit: "ms",
                 directionString: "Direction",
