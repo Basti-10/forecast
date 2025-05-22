@@ -91,12 +91,40 @@ async function loadWind(url) {
     let response = await fetch(url);
     let jsondata = await response.json();
     return jsondata.display_name;
+    let forecastData = new Date(jsondata[0].header.refTime);
+     forecastDate.setHours(forecastDate.getHours() + jasondata[0].header.forecastTime);
+      let forecastSpan = ducument.querySelector("#forecast-link");
+     forecastSpan.innerHTML = `
+        (<a href="${url}" target="met.no>${forecastDate.toLocaleString()}</a>)
+     `;
+
+    loadWind('https://geographie.uibk.ac.at/data/ecmwf/data/wind-10u-10v-europe.json');
+    L.velocityLayer({
+        data: data,
+        displayValues: true,
+        displayOptions: {
+            velocityType: "Wind",
+            position: "bottomright",
+            emptyString: "keine Winddaten",
+            angleConvention: "meteo",
+            showCardinal: true,
+            speedUnit: "ms",
+            directionString: "Windrichtung",
+            speedString: "Speed",
+        },
+        maxVelocity: 10,
+        velocityScale: 0.005,
+        opacity: 0.97,
+        lineWidth: 2,
+    });
+        velocityLayer.addTo(overlays.richtung)
 }
 loadWind('https://geographie.uibk.ac.at/data/ecmwf/data/wind-10u-10v-europe.json');
 */
 
-// Velocity Layer
+//Velocity Layer
 fetch('https://geographie.uibk.ac.at/data/ecmwf/data/wind-10u-10v-europe.json')
+
     .then(res => res.json())
     .then(data => {
         const velocityLayer = L.velocityLayer({
@@ -119,6 +147,11 @@ fetch('https://geographie.uibk.ac.at/data/ecmwf/data/wind-10u-10v-europe.json')
         });
         velocityLayer.addTo(overlays.richtung)
     });
+
+
+    
+
+    
     
 // auf Kartenklick reagieren
 map.on("click", function (evt) {
