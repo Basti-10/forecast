@@ -86,6 +86,15 @@ async function showForecast(latlng) {
     }).openOn(overlays.forecast)
 }
 
+/*ECMWF Windanimation mit leaflet
+async function loadWind(url) {
+    let response = await fetch(url);
+    let jsondata = await response.json();
+    return jsondata.display_name;
+}
+loadWind('https://geographie.uibk.ac.at/data/ecmwf/data/wind-10u-10v-europe.json');
+*/
+
 // Velocity Layer
 fetch('https://geographie.uibk.ac.at/data/ecmwf/data/wind-10u-10v-europe.json')
     .then(res => res.json())
@@ -95,17 +104,18 @@ fetch('https://geographie.uibk.ac.at/data/ecmwf/data/wind-10u-10v-europe.json')
             displayValues: true,
             displayOptions: {
                 velocityType: "Wind",
-                position: "bottomleft",
+                position: "bottomright",
                 emptyString: "keine Winddaten",
                 angleConvention: "meteo",
                 showCardinal: true,
                 speedUnit: "ms",
-                directionString: "Direction",
+                directionString: "Windrichtung",
                 speedString: "Speed",
             },
         maxVelocity: 10,
         velocityScale: 0.005,
         opacity: 0.97,
+        lineWidth: 2,
         });
         velocityLayer.addTo(overlays.richtung)
     });
