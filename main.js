@@ -13,7 +13,7 @@ let map = L.map("map").setView([ibk.lat, ibk.lng], 5);
 let overlays = {
     forecast: L.featureGroup().addTo(map),
     wind: L.featureGroup().addTo(map),
-    richtung: L.featureGroup(),
+    richtung: L.featureGroup().addTo(map),
 }
 
 // Layer Control
